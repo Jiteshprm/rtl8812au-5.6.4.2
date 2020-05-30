@@ -111,7 +111,7 @@ CONFIG_RTW_SDIO_PM_KEEP_POWER = y
 ###################### MP HW TX MODE FOR VHT #######################
 CONFIG_MP_VHT_HW_TX_MODE = n
 ###################### Platform Related #######################
-CONFIG_PLATFORM_I386_PC = y
+CONFIG_PLATFORM_I386_PC = n
 CONFIG_PLATFORM_ARM_RPI = n
 CONFIG_PLATFORM_ANDROID_X86 = n
 CONFIG_PLATFORM_ANDROID_INTEL_X86 = n
@@ -173,6 +173,7 @@ CONFIG_PLATFORM_NV_TK1_UBUNTU = n
 CONFIG_PLATFORM_RTL8197D = n
 CONFIG_PLATFORM_AML_S905 = n
 CONFIG_PLATFORM_ZTE_ZX296716 = n
+CONFIG_PLATFORM_ARM_BITBAKE = y
 ########### CUSTOMER ################################
 CONFIG_CUSTOMER_HUAWEI_GENERAL = n
 
@@ -1650,6 +1651,13 @@ ARCH := arm
 #KSRC := /media/DATA-1/aosp/android-omap-panda-3.0_20120104
 CROSS_COMPILE := /media/DATA-1/android-4.0/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi-
 KSRC := /media/DATA-1/android-4.0/panda_kernel/omap
+MODULE_NAME := wlan
+endif
+
+ifeq ($(CONFIG_PLATFORM_ARM_BITBAKE), y)
+EXTRA_CFLAGS += -DCONFIG_LITTLE_ENDIAN #-DCONFIG_MINIMAL_MEMORY_USAGE
+ARCH := arm
+KSRC := $KERNEL_SRC
 MODULE_NAME := wlan
 endif
 
